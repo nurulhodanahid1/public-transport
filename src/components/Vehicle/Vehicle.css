@@ -1,0 +1,19 @@
+.vehicle-container{
+    float: left;
+    margin-top: 200px;
+    text-align: center;
+    cursor: pointer;
+}
+.vehicle-container:hover{
+    color: #00B294;
+}
+.vehicle{
+    flex: 4 0 auto;
+    margin: 10px 10px 10px 40px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: aliceblue;
+}
+.vehicle img{
+    width: 200px;
+}

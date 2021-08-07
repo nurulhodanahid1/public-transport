@@ -34,11 +34,11 @@ function Login() {
   let { from } = location.state || { from: { pathname: "/" } };
   
   // Google Sign in Started
-  const provider = new firebase.auth.GoogleAuthProvider();
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
   const fbProvider = new firebase.auth.FacebookAuthProvider();
-  const handleSignIn = () => {    // google sign in
+  const googleSignIn = () => {    // google sign in
     firebase.auth()
-      .signInWithPopup(provider)
+      .signInWithPopup(googleProvider)
       .then((result) => {
         console.log(result)
         const { displayName, email, photoURL } = result.user;
@@ -50,6 +50,7 @@ function Login() {
         }
         setUser(signedInUser);
         setVerifiedUser(signedInUser);
+        history.replace(from); 
         console.log(displayName, email, photoURL)
       })
       .catch(err => {
@@ -57,10 +58,20 @@ function Login() {
         console.log(err.message)
       })
   }
-  const handleFbSignIn = () => {    // facebook sign in
+  const fbSignIn = () => {    // facebook sign in
     firebase.auth()
       .signInWithPopup(fbProvider)
       .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+        const signedInUser = {
+          isSignedIn: true,
+          name: displayName,
+          email: email,
+          photo: photoURL
+        }
+        setUser(signedInUser);
+        setVerifiedUser(signedInUser);
+        history.replace(from); 
         //** @type {firebase.auth.OAuthCredential} */
         var credential = result.credential;
 
@@ -133,7 +144,8 @@ function Login() {
           newUserInfo.success = true;
           setUser(newUserInfo);
           updateUserName(user.name);
-          setVerifiedUser(newUserInfo)
+          setVerifiedUser(newUserInfo);
+          history.replace(from); 
         })
         .catch((error) => {
           const newUserInfo = { ...user };
@@ -174,35 +186,27 @@ function Login() {
     });
   }
   return (
-    <div className="App">
-
-      {/* Google Sign in Started */}
+    <div className="login-area">
+      <Form className="user-form" onSubmit={handleSubmit}>
       {
-        user.isSignedIn ? <button onClick={handleSignOut}>Google Sign Out</button>
-          : <button onClick={handleSignIn}><FontAwesomeIcon icon={faGoogle} /> Google Sign in</button>
+        newUser ? <h1>Create an account</h1> :
+        <h1>Login</h1>
       }
-      <br />
-      <button onClick={handleFbSignIn}><FontAwesomeIcon icon = {faFacebookF} /> Sign in using Facebook</button>
-      {
-        user.isSignedIn && <div>
-          <p>Welcome, <strong>{user.name}</strong></p>
-          <p>Your email address is: {user.email}</p>
-          <img src={user.photo} alt="" />
-        </div>
-      }
-      {/* Google sign in end */}
-
-      <h1>Our own Authentication</h1>
-      {/* <p>Email: {user.email}</p>
-      <p>Password: {user.password}</p> */}
-      <input type="checkbox" name="newUser" onChange={() => setNewUser(!newUser)} id="" />
-      <label htmlFor="newUser">New user sign up</label>
-      <Form onSubmit={handleSubmit}>
-        {newUser && <input type="text" onBlur={handleBlur} name="name" id="" placeholder="your name" />} <br />
+        {newUser && <input type="text" onBlur={handleBlur} name="name" id="" placeholder="your name" required />} <br />
         <input type="email" onBlur={handleBlur} name="email" id="" placeholder="your email address" required /> <br />
-        <input type="password" onBlur={handleBlur} name="password" id="" placeholder="your password" required /> <br />
-        <input type="submit" value={newUser ? "Sign up" : "Sign in"} />
+        <input type="password" onBlur={handleBlur} name="password" id="" placeholder="password" required /> <br />
+        {newUser && <input type="password" onBlur={handleBlur} name="password" id="" placeholder="confirm password" required />}
+        <input className="login-button" type="submit" value={newUser ? "Create an account" : "Login"} />
+        {
+        !newUser ? <p>Don't have an account? <span className="user-question" onClick={() => setNewUser(!newUser)}>Create an account</span></p> :
+        <p>Already have an account? <span className="user-question" onClick={() => setNewUser(!newUser)} >Login</span></p>
+      }
       </Form>
+      <p>-------------Or-------------</p>
+      <button className="social-login" onClick={fbSignIn}><span className="social-icon fb-icon"><FontAwesomeIcon icon = {faFacebookF} /></span> Continue with Facebook</button>
+      <br />
+      <button className="social-login" onClick={googleSignIn}><span className="social-icon google-icon"><FontAwesomeIcon icon={faGoogle} /></span> Continue with Google</button>
+      
       
       <p style={{ color: "red" }}>{user.err}</p>
       {user.success && <p style={{ color: "green" }}>Account {newUser ? "created" : "logged in"} successfully!!</p>}

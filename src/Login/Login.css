@@ -1,0 +1,86 @@
+.login-area{
+    text-align: center;
+}
+.user-form{
+    border: 1px solid gray;
+    margin: 0 200px 15px;
+    padding: 5px 0;
+    border-radius: 5px;
+}
+.user-form input{
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-top: 15px;
+    display: block;
+    margin-left: 300px;
+}
+.login-button{
+    background-color: #FF6E40;
+    color: #fff;
+    padding: 5px 40px;
+    border-radius: 2px;
+    display: block;
+    margin-top: 0 10px;
+    border: 1px solid #FF6E40;
+}
+.login-button:hover{
+    background-color: #fff;
+    color: #FF6E40;
+    border: 1px solid #FF6E40;
+}
+.user-question{
+    color: #FF6E40;
+    cursor: pointer;
+}
+.user-question:hover{
+    border-bottom: 1px solid #FF6E40;
+}
+
+.social-login{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid rgb(168, 168, 168);
+    background-color: #fff;
+}
+.social-login:hover{
+    background-color: #FF6E40;
+}
+.social-icon{
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 8px 13px;
+    border-radius: 100%;
+    font-size: 15px;
+}
+.google-icon{
+    background-color: #fff;
+    color: red;
+}
+.fb-icon{
+    color: #fff;
+    background-color: #377BFF;
+}
+
+
+@media only screen and (max-width: 1100px) {
+    .user-form input {
+        margin-left: 200px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .user-form input {
+        margin-left: 100px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .user-form{
+        margin: 0 50px;
+    }
+}
+@media only screen and (max-width: 695px) {
+    .user-form input {
+        margin-left: 10px;
+    }
+}

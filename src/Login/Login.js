@@ -192,10 +192,10 @@ function Login() {
         newUser ? <h1>Create an account</h1> :
         <h1>Login</h1>
       }
-        {newUser && <input type="text" onBlur={handleBlur} name="name" id="" placeholder="your name" required />} <br />
-        <input type="email" onBlur={handleBlur} name="email" id="" placeholder="your email address" required /> <br />
-        <input type="password" onBlur={handleBlur} name="password" id="" placeholder="password" required /> <br />
-        {newUser && <input type="password" onBlur={handleBlur} name="password" id="" placeholder="confirm password" required />}
+        {newUser && <input type="text" onBlur={handleBlur} name="name" placeholder="your name" required />} <br />
+        <input type="email" onBlur={handleBlur} name="email" placeholder="your email address" required /> <br />
+        <input type="password" onBlur={handleBlur} name="password"placeholder="password" required /> <br />
+        {newUser && <input type="password" onBlur={handleBlur} name="password" placeholder="confirm password" required />}
         <input className="login-button" type="submit" value={newUser ? "Create an account" : "Login"} />
         {
         !newUser ? <p>Don't have an account? <span className="user-question" onClick={() => setNewUser(!newUser)}>Create an account</span></p> :

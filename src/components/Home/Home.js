@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Home.css";
 import fakeData from '../../fakeData/index';
 import { useState } from 'react';
 import Vehicle from '../Vehicle/Vehicle';
 import { useHistory } from 'react-router-dom';
+import { SearchContext } from '../../App';
 
 const Header = () => {
     const [vehicles, setVehicles] = useState(fakeData);
     const history = useHistory()
     const handleVehicleSelect = () => {
-        history.push("/destination")
+        history.push("/destination");
     }
 
     return (

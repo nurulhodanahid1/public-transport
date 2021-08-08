@@ -9,31 +9,31 @@ import { createContext } from 'react';
 import { useState } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
 function App() {
-  const [verifiedUser, setVerifiedUser] = useState({})
+  const [verifiedUser, setVerifiedUser] = useState({});
   return (
     <UserContext.Provider value={[verifiedUser, setVerifiedUser]}>
-      <Router>  
-        <Menu></Menu>
-        <h2>email: {verifiedUser.email}</h2>
-        <Switch>
-          <Route path="/home">
-            <Home></Home>
-          </Route>
-          <Route path="/login">
-            <Login></Login>
-          </Route>
-          <PrivateRoute path="/destination">
-            <Destination></Destination>
-          </PrivateRoute>
+        <Router>
+          <Menu></Menu>
+          <p>email: {verifiedUser.email}</p>
+          <Switch>
+            <Route path="/home">
+              <Home></Home>
+            </Route>
+            <Route path="/login">
+              <Login></Login>
+            </Route>
+            <PrivateRoute path="/destination">
+              <Destination></Destination>
+            </PrivateRoute>
 
-          <Route exact path="/">
-            <Home></Home>
-          </Route>
-        </Switch>
-      </Router>
+            <Route exact path="/">
+              <Home></Home>
+            </Route>
+          </Switch>
+        </Router>
     </UserContext.Provider>
   );
 }

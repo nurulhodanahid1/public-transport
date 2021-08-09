@@ -33,10 +33,9 @@ function Login() {
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
   
-  // Google Sign in Started
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const fbProvider = new firebase.auth.FacebookAuthProvider();
-  const googleSignIn = () => {    // google sign in
+  const googleSignIn = () => {
     firebase.auth()
       .signInWithPopup(googleProvider)
       .then((result) => {
@@ -58,7 +57,7 @@ function Login() {
         console.log(err.message)
       })
   }
-  const fbSignIn = () => {    // facebook sign in
+  const fbSignIn = () => {
     firebase.auth()
       .signInWithPopup(fbProvider)
       .then((result) => {
@@ -71,17 +70,9 @@ function Login() {
         }
         setUser(signedInUser);
         setVerifiedUser(signedInUser);
-        history.replace(from); 
-        //** @type {firebase.auth.OAuthCredential} */
-        var credential = result.credential;
-
-        // The signed-in user info.
+        history.replace(from);
         const user = result.user;
-        console.log("after fb sign in", user)
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        var accessToken = credential.accessToken;
-
-        // ...
+        // console.log("after fb sign in", user)
       })
       .catch((error) => {
         var errorCode = error.code;
@@ -89,35 +80,14 @@ function Login() {
         console.log(errorCode, errorMessage);
       });
   }
-  const handleSignOut = () => {      // google sign out
-    firebase.auth().signOut()
-      .then(result => {
-        const signOutUser = {
-          isSignedIn: false,
-          name: "",
-          email: "",
-          photo: ""
-        }
-        setUser(signOutUser)
-        console.log(result)
-      })
-      .catch(err => {
-
-      })
-  }
-  // Google Sign in End
   const handleBlur = (e) => {
-    // console.log(e.target.name, e.target.value)
     let isFieldValid = true;
     if (e.target.name === "email") {
-      // const isEmailValid = /\S+@\S+\.\S+/.test(e.target.value);
       isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
-      // console.log(isEmailValid);
     }
     if (e.target.name === "password") {
       const isPasswordValid = e.target.value.length >= 6;
       const passwordHasNumber = /\d{1}/.test(e.target.value);   // /\d{1}.test(1) = true;
-      // console.log(isPasswordValid && passwordHasNumber);
       isFieldValid = isPasswordValid && passwordHasNumber;
     }
     if (isFieldValid) {
@@ -127,11 +97,9 @@ function Login() {
     }
   }
   const handleSubmit = (e) => {
-    // console.log(user.email, user.password)
     if (newUser && user.email && user.password) {
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
-          // Signed in 
           const newUserInfo = { ...user };
           newUserInfo.error = "";
           newUserInfo.success = true;
@@ -150,7 +118,6 @@ function Login() {
     if (!newUser && user.email && user.password) {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
         .then((res) => {
-          // Signed in
           const newUserInfo = { ...user };
           newUserInfo.error = "";
           newUserInfo.success = true;
@@ -196,9 +163,9 @@ function Login() {
       }
       </Form>
       <h4 style={{marginBottom: "15px"}}>Continue with your social</h4>
-      <button className="social-login" onClick={fbSignIn}><span className="social-icon fb-icon"><FontAwesomeIcon icon = {faFacebookF} /></span> Continue with Facebook</button>
+      <button className="social-login" onClick={fbSignIn}><span className="social-icon fb-icon"><FontAwesomeIcon icon = {faFacebookF} /></span> Login with Facebook</button>
       <br />
-      <button className="social-login" onClick={googleSignIn}><span className="social-icon google-icon"><FontAwesomeIcon icon={faGoogle} /></span> Continue with Google</button>
+      <button className="social-login" onClick={googleSignIn}><span className="social-icon google-icon"><FontAwesomeIcon icon={faGoogle} /></span> Login with Google</button>
       
       
       <p style={{ color: "red" }}>{user.err}</p>

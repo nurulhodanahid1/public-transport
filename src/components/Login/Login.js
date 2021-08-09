@@ -4,7 +4,7 @@ import "firebase/auth";
 import firebaseConfig from './firebase.config';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { UserContext } from '../App';
+import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';

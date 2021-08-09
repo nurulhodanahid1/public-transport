@@ -2,7 +2,7 @@ import './App.css';
 import Home from './components/Home/Home';
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from './Login/Login';
+import Login from './components/Login/Login';
 import Menu from './components/Menu/Menu';
 import Destination from './components/Destination/Destination';
 import { createContext } from 'react';

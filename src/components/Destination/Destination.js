@@ -39,6 +39,9 @@ const Destination = () => {
                                 <p>Pick To</p>
                                 <input type="text" onBlur={handleBlur} name="to" id="to" required />
                                 <br />
+                                <input style={{marginTop:"20px"}} type="time" id="time" name="time"></input>
+                                <br />
+                                <input style={{marginTop:"20px"}} type="date" id="date" name="date"></input>
                                 <input className="login-button" type="submit" value="Search" />
                             </Form>
                             :

@@ -17,7 +17,7 @@ if (!firebase.apps.length) {
 }
 
 function Login() {
-    const [newUser, setNewUser] = useState(false)
+  const [newUser, setNewUser] = useState(false)
   const [user, setUser] = useState({
     isSignedIn: false,
     name: "",
@@ -27,12 +27,12 @@ function Login() {
     err: "",
     success: false
   })
-  
+
   const [verifiedUser, setVerifiedUser] = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
-  
+
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const fbProvider = new firebase.auth.FacebookAuthProvider();
   const googleSignIn = () => {
@@ -49,7 +49,7 @@ function Login() {
         }
         setUser(signedInUser);
         setVerifiedUser(signedInUser);
-        history.replace(from); 
+        history.replace(from);
         console.log(displayName, email, photoURL)
       })
       .catch(err => {
@@ -106,7 +106,7 @@ function Login() {
           setUser(newUserInfo);
           updateUserName(user.name);
           setVerifiedUser(newUserInfo);
-          history.replace(from); 
+          history.replace(from);
         })
         .catch((error) => {
           const newUserInfo = { ...user };
@@ -148,27 +148,35 @@ function Login() {
   return (
     <div className="login-area">
       <Form className="user-form" onSubmit={handleSubmit}>
-      {
-        newUser ? <h1>Create an account</h1> :
-        <h1>Login</h1>
-      }
+        {
+          newUser ? <h1>Create an account</h1> :
+            <h1>Login</h1>
+        }
         {newUser && <input type="text" onBlur={handleBlur} name="name" placeholder="your name" required />} <br />
         <input type="email" onBlur={handleBlur} name="email" placeholder="your email address" required /> <br />
-        <input type="password" onBlur={handleBlur} name="password"placeholder="password" required /> <br />
+        <input type="password" onBlur={handleBlur} name="password" placeholder="password" required /> <br />
         {newUser && <input type="password" onBlur={handleBlur} name="password" placeholder="confirm password" required />}
-        <input className="login-button" type="submit" value={newUser ? "Create an account" : "Login"} />
+        <p style={{ color: "red" }}>{user.err}</p>
         {
-        !newUser ? <p>Don't have an account? <span className="user-question" onClick={() => setNewUser(!newUser)}>Create an account</span></p> :
-        <p>Already have an account? <span className="user-question" onClick={() => setNewUser(!newUser)} >Login</span></p>
-      }
+        !newUser && <div className="d-flex flex-row bd-highlight mb-3">
+          <input type="checkbox" name="newUser" id="" />
+          <label style={{ margin: "10px 0 0 4px" }} htmlFor="newUser">Remember me</label>
+          <div style={{ margin: "10px 0 0 40px" }} className="user-question">Forgot password?</div>
+        </div>
+        }
+        <input className="login-button" type="submit" value={newUser ? "Create an account" : "Login"} />
+
+        {
+          !newUser ? <p>Don't have an account? <span className="user-question" onClick={() => setNewUser(!newUser)}>Create an account</span></p> :
+            <p>Already have an account? <span className="user-question" onClick={() => setNewUser(!newUser)} >Login</span></p>
+        }
       </Form>
-      <h4 style={{marginBottom: "15px"}}>Continue with your social</h4>
-      <button className="social-login" onClick={fbSignIn}><span className="social-icon fb-icon"><FontAwesomeIcon icon = {faFacebookF} /></span> Login with Facebook</button>
+      <h4 style={{ marginBottom: "15px" }}>Continue with your social</h4>
+      <button className="social-login" onClick={fbSignIn}><span className="social-icon fb-icon"><FontAwesomeIcon icon={faFacebookF} /></span> Login with Facebook</button>
       <br />
       <button className="social-login" onClick={googleSignIn}><span className="social-icon google-icon"><FontAwesomeIcon icon={faGoogle} /></span> Login with Google</button>
-      
-      
-      <p style={{ color: "red" }}>{user.err}</p>
+
+
       {user.success && <p style={{ color: "green" }}>Account {newUser ? "created" : "logged in"} successfully!!</p>}
     </div>
   );

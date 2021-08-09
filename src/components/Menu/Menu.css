@@ -1,3 +1,24 @@
-.menu-bg{
-    background-color: #9CE3F6;
+.nav-brand{
+    font-size: 35px;
+    text-decoration: none;
+    color: #9DE4F6;
+    font-weight: 600;
+}
+.menu-item{
+    font-size: 20px;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #9CE3F6;
+}
+.menu-btn{
+    text-decoration: none;
+}
+.profile{
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 10px;
+}
+.profile:hover{
+    color: #FFBC27 !important;
 }

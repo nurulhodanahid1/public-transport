@@ -84,16 +84,9 @@ function Login() {
         // ...
       })
       .catch((error) => {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-
-        // ...
       });
   }
   const handleSignOut = () => {      // google sign out
@@ -202,7 +195,7 @@ function Login() {
         <p>Already have an account? <span className="user-question" onClick={() => setNewUser(!newUser)} >Login</span></p>
       }
       </Form>
-      <p>-------------Or-------------</p>
+      <h4 style={{marginBottom: "15px"}}>Continue with your social</h4>
       <button className="social-login" onClick={fbSignIn}><span className="social-icon fb-icon"><FontAwesomeIcon icon = {faFacebookF} /></span> Continue with Facebook</button>
       <br />
       <button className="social-login" onClick={googleSignIn}><span className="social-icon google-icon"><FontAwesomeIcon icon={faGoogle} /></span> Continue with Google</button>

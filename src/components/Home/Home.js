@@ -10,8 +10,8 @@ import { SearchContext } from '../../App';
 const Header = () => {
     const [vehicles, setVehicles] = useState(fakeData);
     const history = useHistory()
-    const handleVehicleSelect = () => {
-        history.push("/destination");
+    const handleVehicleSelect = (id) => {
+        history.push("/destination/"+id);
     }
 
     return (
